@@ -17,7 +17,7 @@
 #include <auton/primitives/HoldPosition.h>
 #include <auton/primitives/TurnAngle.h>
 #include <auton/primitives/DriveToWall.h>
-#include <auton/primitives/AutoShoot.h>
+//#include <auton/primitives/AutoShoot.h>
 #include <auton/primitives/IPrimitive.h>
 
 PrimitiveFactory* PrimitiveFactory::m_instance = nullptr;
@@ -107,11 +107,14 @@ IPrimitive* PrimitiveFactory::GetIPrimitive(PrimitiveParams* primitivePasser)
         primitive = m_driveToWall;
         break;
 	case AUTO_SHOOT :
+	/**
 		if (m_autoShoot == nullptr)
 		{
 			m_autoShoot = new AutoShoot();
 		}
 		primitive = new AutoShoot();
+		**/
+	break;
 	default:
 		break;
 	}

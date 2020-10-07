@@ -23,7 +23,7 @@
 
 // Team 302 includes
 #include <auton/PrimitiveEnums.h>
-#include <states/BallManipulator.h>
+//#include <states/BallManipulator.h>
 //#include <utils/DragonMath.h>
 
 // Third Party Includes
@@ -46,7 +46,7 @@ class PrimitiveParams
                 float                                               heading,
                 float                                               startDriveSpeed,
                 float                                               endDriveSpeed,
-                BallManipulator::BALL_MANIPULATOR_STATE             ballState,
+//                BallManipulator::BALL_MANIPULATOR_STATE             ballState,
                 float                                               turretAngle
         );//Constructor. Takes in all parameters
 
@@ -63,7 +63,7 @@ class PrimitiveParams
         float GetHeading() const;
         float GetDriveSpeed() const;
         float GetEndDriveSpeed() const;
-        BallManipulator::BALL_MANIPULATOR_STATE GetBallState() const;
+//        BallManipulator::BALL_MANIPULATOR_STATE GetBallState() const;
         float GetTurretAngle() const;
 
         //Setters
@@ -79,7 +79,7 @@ class PrimitiveParams
         float                                               m_heading;
         float                                               m_startDriveSpeed;
         float                                               m_endDriveSpeed;
-        BallManipulator::BALL_MANIPULATOR_STATE             m_ballState;
+//        BallManipulator::BALL_MANIPULATOR_STATE             m_ballState;
         float                                               m_turretAngle;
 };
 

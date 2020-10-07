@@ -27,8 +27,8 @@
 #include <xmlhw/RobotDefn.h>
 #include <auton/CyclePrimitives.h>
 #include <states/chassis/ChassisStateMgr.h>
-#include <states/BallManipulator.h>
-#include <states/intake/IntakeStateMgr.h>
+//#include <states/BallManipulator.h>
+//#include <states/intake/IntakeStateMgr.h>
 #include <gamepad/TeleopControl.h>
 //#include <states/controlPanel/ControlPanelStateMgr.h>
 //#include <states/climber/ClimberStateMgr.h>
@@ -38,12 +38,14 @@
 #include <ctre/Phoenix.h>
 
 
-#include <test/ButtonBoxDisplay.h>
-#include <test/XboxDisplay.h>
+//#include <test/ButtonBoxDisplay.h>
+//#include <test/XboxDisplay.h>
+/**
 #include <test/IntakeStateMgrTest.h>
 #include <test/ImpellerStateMgrTest.h>
 #include <test/BallTransferStateMgrTest.h>
 #include <test/ShooterStateMgrTest.h>
+**/
 #include <ctre/Phoenix.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/MechanismTypes.h>
@@ -51,7 +53,7 @@
 #include <subsys/IChassis.h>
 #include <hw/factories/PigeonFactory.h>
 #include <frc/Solenoid.h>
-#include <states/hookdelivery/HookDeliveryStateMgr.h>
+//#include <states/hookdelivery/HookDeliveryStateMgr.h>
 
 using namespace std;
 using namespace frc;
@@ -72,16 +74,17 @@ void Robot::RobotInit()
     // Create the Chassis Control (state) modes which puts the auton choices and teleop drive modes 
     // on the dashboard for selection.
     m_chassisStateMgr = new ChassisStateMgr();
-
+    /**
     m_hook = HookDeliveryStateMgr::GetInstance();
     m_winch = ClimberStateMgr::GetInstance();
-
-
+    **/
+/**
     m_powerCells = BallManipulator::GetInstance();
     m_shooterHood = MechanismFactory::GetMechanismFactory()->GetIMechanism(MechanismTypes::SHOOTER_HOOD);
     m_turret = MechanismFactory::GetMechanismFactory()->GetIMechanism(MechanismTypes::TURRET);
     m_impeller = MechanismFactory::GetMechanismFactory()->GetIMechanism(MechanismTypes::IMPELLER);
     m_shooter = MechanismFactory::GetMechanismFactory()->GetIMechanism(MechanismTypes::SHOOTER);
+    **/
     m_controller = TeleopControl::GetInstance();
 
     // pick test mode
@@ -95,8 +98,8 @@ void Robot::RobotInit()
 
     SmartDashboard::PutData("Test", &m_testChooser);
 
-    m_buttonBoxDisplay = nullptr;
-    m_xBoxDisplay = nullptr;
+   // m_buttonBoxDisplay = nullptr;
+   // m_xBoxDisplay = nullptr;
 }
 
 /// @brief This function is called every robot packet, no matter the  mode. This is used for items like diagnostics that run 
@@ -132,8 +135,8 @@ void Robot::TeleopInit()
 {
     m_chassisStateMgr->SetState( ChassisStateMgr::CHASSIS_STATE::TELEOP );
     m_chassisStateMgr->Init();
-    m_powerCells->SetCurrentState(BallManipulator::BALL_MANIPULATOR_STATE::OFF, 0.0);
-    m_powerCells->RunCurrentState();
+   // m_powerCells->SetCurrentState(BallManipulator::BALL_MANIPULATOR_STATE::OFF, 0.0);
+   // m_powerCells->RunCurrentState();
     
 
 }
@@ -144,11 +147,11 @@ void Robot::TeleopInit()
 void Robot::TeleopPeriodic() 
 {
     m_chassisStateMgr->RunCurrentState();
-    m_powerCells->RunCurrentState();
-    frc::SmartDashboard::PutNumber("Turret position", m_turret->GetCurrentPosition());
+    //m_powerCells->RunCurrentState();
+    //frc::SmartDashboard::PutNumber("Turret position", m_turret->GetCurrentPosition());
 
-    m_winch->RunCurrentState();
-    m_hook->RunCurrentState();
+    //m_winch->RunCurrentState();
+    //m_hook->RunCurrentState();
 }
 
 
@@ -157,6 +160,7 @@ void Robot::TeleopPeriodic()
 /// @return void
 void Robot::TestInit() 
 {
+    /**
     m_testSelected = m_testChooser.GetSelected();
     if ( m_testSelected == m_buttonBoxTest )
     {
@@ -183,6 +187,7 @@ void Robot::TestInit()
         m_currentTest = TRANSFER;
 		m_ballTransferStateMgrTest = new BallTransferStateMgrTest();
 	}
+    **/
     /**
 	else if ( m_testSelected == m_shooterTest )
 	{
@@ -190,10 +195,12 @@ void Robot::TestInit()
 		m_shooterStateMgrTest = new ShooterStateMgrTest();
 	}
     **/
+   /**
     else
     {
         m_currentTest = NONE;
     }
+    **/
 }
 
 
@@ -201,6 +208,7 @@ void Robot::TestInit()
 /// @return void
 void Robot::TestPeriodic() 
 {
+    /**
     switch ( m_currentTest )
     {
         case BUTTON_BOX:
@@ -231,6 +239,7 @@ void Robot::TestPeriodic()
 				m_ballTransferStateMgrTest->Periodic();
 			}
 			break;
+            **/
 		/**
 		case SHOOTER: 
 			if ( !m_shooterStateMgrTest->IsDone() )
@@ -239,9 +248,11 @@ void Robot::TestPeriodic()
 			}
 			break;
         **/
+       /**
         default:
             break;
     }
+    **/
 }
 
 #ifndef RUNNING_FRC_TESTS

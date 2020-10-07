@@ -42,16 +42,16 @@
 #include <hw/DragonDigitalInput.h>
 #include <subsys/ControlPanel.h>
 #include <subsys/MechanismFactory.h>
-#include <subsys/HookDelivery.h>
+//#include <subsys/HookDelivery.h>
 #include <subsys/IMechanism.h>
 #include <subsys/MechanismTypes.h>
-#include <subsys/Intake.h>
+//#include <subsys/Intake.h>
 #include <utils/Logger.h>
-#include <subsys/Impeller.h>
-#include <subsys/BallTransfer.h>
-#include <subsys/Turret.h>
-#include <subsys/Shooter.h>
-#include <subsys/ShooterHood.h>
+//#include <subsys/Impeller.h>
+//#include <subsys/BallTransfer.h>
+//#include <subsys/Turret.h>
+//#include <subsys/Shooter.h>
+//#include <subsys/ShooterHood.h>
 
 // Third Party Includes
 #include <rev/ColorSensorV3.h>
@@ -138,6 +138,7 @@ IMechanism*  MechanismFactory::CreateIMechanism
     }
     else
     {
+		/**
         // Create the mechanism
         switch ( type )
         {
@@ -261,7 +262,9 @@ IMechanism*  MechanismFactory::CreateIMechanism
             break;
         }
 		m_mechanisms[type] = subsys;
+		**/
     }
+	
 
 	return subsys;
 }

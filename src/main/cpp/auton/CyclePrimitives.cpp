@@ -30,9 +30,9 @@
 #include <frc/SmartDashboard/SmartDashboard.h>
 #include <auton/PrimitiveParser.h>
 #include <auton/PrimitiveParams.h>
-#include <states/BallManipulator.h>
+//#include <states/BallManipulator.h>
 #include <utils/Logger.h>
-#include <auton/primitives/AutoShoot.h>
+//#include <auton/primitives/AutoShoot.h>
 
 // Third Party Includes
 
@@ -48,7 +48,7 @@ CyclePrimitives::CyclePrimitives() : m_primParams(),
 									 m_autonSelector( new AutonSelector()) ,
 									 m_timer( make_unique<Timer>()),
 									 m_maxTime( 0.0 ),
-									 m_powerCells( new AutoShoot() ),
+									 //m_powerCells( new AutoShoot() ),
 									 m_isDone( false )
 {
 }
@@ -70,7 +70,7 @@ void CyclePrimitives::Run()
 	{
 		Logger::GetLogger()->LogError( string("CyclePrimitive::RunCurrentPrimitive"), string("Primitive Detected!"));
 		m_currentPrim->Run();
-		m_powerCells->Run();
+		//m_powerCells->Run();
 		if (m_currentPrim->IsDone() )
 		{
 			GetNextPrim();
@@ -99,7 +99,7 @@ void CyclePrimitives::GetNextPrim()
 	if (m_currentPrim != nullptr && currentPrimParam != nullptr)
 	{
 		m_currentPrim->Init(currentPrimParam);
-		m_powerCells->Init(currentPrimParam);
+		//->Init(currentPrimParam);
 		m_maxTime = currentPrimParam->GetTime();
 		m_timer->Reset();
 		m_timer->Start();
@@ -112,7 +112,7 @@ void CyclePrimitives::RunDoNothing()
 {
 	if (m_doNothing == nullptr)
 	{	
-		BallManipulator::BALL_MANIPULATOR_STATE state = BallManipulator::BALL_MANIPULATOR_STATE::HOLD;
+	//	BallManipulator::BALL_MANIPULATOR_STATE state = BallManipulator::BALL_MANIPULATOR_STATE::HOLD;
 		auto time = DriverStation::GetInstance().GetMatchTime();
 		auto params = new PrimitiveParams( DO_NOTHING,          // identifier
 		                                   time,              	// time
@@ -122,12 +122,12 @@ void CyclePrimitives::RunDoNothing()
 		                                   0.0,                 // heading
 		                                   0.0,                 // start drive speed
 		                                   0.0,					// end drive speed
-										   state,
+	//									   state,
 										   0.0                  
 										   );             
 		m_doNothing = m_primFactory->GetIPrimitive(params);
 		m_doNothing->Init(params);
-		m_powerCells->Init(params);
+		//m_powerCells->Init(params);
 	}
 	m_doNothing->Run();
 }

@@ -22,7 +22,9 @@
 // FRC includes
 #include <frc/Timer.h>
 
+
 // Team 302 includes
+#include <auton/primitives/IPrimitive.h>
 
 // Third Party Includes
 
@@ -62,7 +64,7 @@ class CyclePrimitives : public IState
 		AutonSelector* 					m_autonSelector;
 		std::unique_ptr<frc::Timer>     m_timer;
 		double                          m_maxTime;
-		AutoShoot*						m_powerCells;
+		//AutoShoot*						m_powerCells;
 		bool							m_isDone;
 };
 

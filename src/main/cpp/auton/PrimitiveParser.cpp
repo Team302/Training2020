@@ -25,7 +25,7 @@
 #include <auton/AutonSelector.h>
 #include <auton/PrimitiveEnums.h>
 #include <auton/primitives/IPrimitive.h>
-#include <states/BallManipulator.h>
+//#include <states/BallManipulator.h>
 #include <utils/Logger.h>
 
 using namespace std;
@@ -51,7 +51,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     primStringToEnumMap["TURN_ANGLE_ABS"] = TURN_ANGLE_ABS;
     primStringToEnumMap["TURN_ANGLE_REL"] = TURN_ANGLE_REL;
     primStringToEnumMap["AUTO_SHOOT"] = AUTO_SHOOT;
-
+/**
     map<string, BallManipulator::BALL_MANIPULATOR_STATE> ballStringToEnumMap;
     ballStringToEnumMap["OFF"] = BallManipulator::BALL_MANIPULATOR_STATE::OFF;
     ballStringToEnumMap["INTAKE"]  = BallManipulator::BALL_MANIPULATOR_STATE::INTAKE;
@@ -61,7 +61,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
     ballStringToEnumMap["SHOOT"] = BallManipulator::BALL_MANIPULATOR_STATE::SHOOT;
     ballStringToEnumMap["SHOOT_AUTON"] = BallManipulator::BALL_MANIPULATOR_STATE::SHOOT_AUTON;
     ballStringToEnumMap["TURRET_TURN_ANGLE"] = BallManipulator::TURRET_TURN_ANGLE;
-
+**/
 
 
     xml_document doc;
@@ -86,7 +86,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                     float endDriveSpeed = 0.0;
                     float xloc = 0.0;
                     float yloc = 0.0;
-                    BallManipulator::BALL_MANIPULATOR_STATE ballState = BallManipulator::BALL_MANIPULATOR_STATE::OFF;
+                    //BallManipulator::BALL_MANIPULATOR_STATE ballState = BallManipulator::BALL_MANIPULATOR_STATE::OFF;
                     float turretAngle = 0.0;
                     bool hasError = false;
                     for (xml_attribute attr = primitiveNode.first_attribute(); attr; attr = attr.next_attribute())
@@ -136,16 +136,16 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                         }
                         else if ( strcmp( attr.name(), "ballState" ) == 0 )
                         {
-                            auto ballStringToEnumItr = ballStringToEnumMap.find( attr.value() );
-                            if ( ballStringToEnumItr != ballStringToEnumMap.end() )
-                            {
-                                ballState = ballStringToEnumItr->second;
-                            }
-                            else
-                            {
-                                Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid ball state"), attr.value());
-                                hasError = true;
-                            }
+ //                           auto ballStringToEnumItr = ballStringToEnumMap.find( attr.value() );
+ //                           if ( ballStringToEnumItr != ballStringToEnumMap.end() )
+ //                           {
+ //                               ballState = ballStringToEnumItr->second;
+ //                           }
+ //                          else
+ //                           {
+ //                               Logger::GetLogger()->LogError( string("PrimitiveParser::ParseXML invalid ball state"), attr.value());
+ //                               hasError = true;
+ //                           }
                         }
                         else if ( strcmp( attr.name(), "turretAngle") == 0 )
                         {
@@ -167,7 +167,7 @@ PrimitiveParamsVector PrimitiveParser::ParseXML
                                                                        heading,
                                                                        startDriveSpeed,
                                                                        endDriveSpeed,
-                                                                       ballState,
+//                                                                       ballState,
                                                                        turretAngle ) );
                     }
                     else 
