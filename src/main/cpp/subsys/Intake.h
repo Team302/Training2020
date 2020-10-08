@@ -16,6 +16,7 @@
 
 // C++ Includes
 #include <memory>
+<<<<<<< master
 
 // FRC includes
 
@@ -26,10 +27,20 @@
 
 
 // Third Party Includes
+=======
+// FRC includes
+
+//Team 302 Includes
+#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech1Solenoid.h>
+
+//Third Party Includes
+>>>>>>> Creates new Subsystems
 
 class IDragonMotorController;
 class DragonSolenoid;
 
+<<<<<<< master
 class Intake :  public Mech1IndMotor, public Mech1Solenoid
 {
 	public:
@@ -40,6 +51,20 @@ class Intake :  public Mech1IndMotor, public Mech1Solenoid
         /// @brief Create the Intake mechanism
         /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the intake
         /// @param [in] shared_ptr<DragonSolenoid> the solenoid that will deploy the intake
+=======
+
+class Intake : public Mech1IndMotor, public Mech1Solenoid
+{
+    public:
+        /// @brief Creates the Intake mechanism
+        Intake() = delete;
+
+
+
+        /// @brief Creates the Intake mechanism
+        /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the intake
+        /// @param [in] shared_ptr<IDragonMotorController> the solenoid that will the deploy the intake
+>>>>>>> Creates new Subsystems
         Intake
         (
             std::shared_ptr<IDragonMotorController>     motorController,
@@ -50,5 +75,9 @@ class Intake :  public Mech1IndMotor, public Mech1Solenoid
         ~Intake() override = default;
 
 
+<<<<<<< master
 };
 
+=======
+};
+>>>>>>> Creates new Subsystems

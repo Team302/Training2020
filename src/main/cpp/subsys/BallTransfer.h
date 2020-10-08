@@ -16,6 +16,7 @@
 
 // C++ Includes
 #include <memory>
+<<<<<<< master
 
 // FRC includes
 
@@ -37,6 +38,27 @@ class BallTransfer :  public Mech1IndMotor
 
         /// @brief Create the BallTransfer mechanism
         /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the ball transfer
+=======
+// FRC includes
+
+//Team 302 Includes
+#include <subsys/Mech1IndMotor.h>
+
+//Third Party Includes
+
+class IDragonMotorController;
+
+class BallTransfer : public Mech1IndMotor
+{
+    public:
+        /// @brief Creates the BallTransfer mechanism
+        BallTransfer() = delete;
+
+
+
+        /// @brief Creates the BallTransfer mechanism
+        /// @param [in] IDragonMotorController* the motor controller that will run the ball transfer
+>>>>>>> Creates new Subsystems
         BallTransfer
         (
             std::shared_ptr<IDragonMotorController>     motorController
@@ -46,5 +68,9 @@ class BallTransfer :  public Mech1IndMotor
         ~BallTransfer() override = default;
 
 
+<<<<<<< master
 };
 
+=======
+};
+>>>>>>> Creates new Subsystems

@@ -12,62 +12,34 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
-
-<<<<<<< master
-=======
-
->>>>>>> Creates new Subsystems
+#pragma once
 // C++ Includes
 #include <memory>
-#include <string>
-
 // FRC includes
 
-<<<<<<< master
-
-// Team 302 includes
-=======
 //Team 302 Includes
->>>>>>> Creates new Subsystems
-#include <subsys/BallTransfer.h>
-#include <subsys/Mech1IndMotor.h>
-#include <subsys/MechanismTypes.h>
+#include <subsys/Mech1IndMotor.h>0
 
-<<<<<<< master
-
-// Third Party Includes
-=======
 //Third Party Includes
->>>>>>> Creates new Subsystems
 
+class IDragonMotorController;
 
-using namespace std;
-
-
-<<<<<<< master
-/// @brief Create the BallTransfer mechanism
-/// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the ball transfer
-BallTransfer::BallTransfer
-(
-    shared_ptr<IDragonMotorController>     motorController
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
-                   string("balltransfer.xml"),
-                   string("balltransferNT") ,
-                   motorController )
+class Turret : public Mech1IndMotor
 {
-}
-=======
-/// @brief Creates the BallTransfer mechanism
-/// @param [in] IDragonMotorController* the motor controller that will run the ball transfer  
-BallTransfer::BallTransfer
-(
-    shared_ptr<IDragonMotorController>     motorController
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER,
-                    string("balltransfer.xml"),
-                    string("balltransferNT"),
-                    motorController )
-{
-    
-}
-    
->>>>>>> Creates new Subsystems
+    public:
+        /// @brief Creates the Turret mechanism
+        Turret() = delete;
+
+
+
+        /// @brief Creates the Turret mechanism
+        /// @param [in] IDragonMotorController* the motor controller that will run the turret
+        Turret
+        (
+            std::shared_ptr<IDragonMotorController>     motorController
+        );
+
+        /// @brief Destroy the object and free memory
+        ~Turret() override = default;
+
+};

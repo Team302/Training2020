@@ -13,61 +13,33 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
-<<<<<<< master
-=======
 
->>>>>>> Creates new Subsystems
 // C++ Includes
 #include <memory>
 #include <string>
 
-// FRC includes
+//FRC Includes
 
-<<<<<<< master
-
-// Team 302 includes
-=======
 //Team 302 Includes
->>>>>>> Creates new Subsystems
-#include <subsys/BallTransfer.h>
+#include <subsys/Turret.h>
 #include <subsys/Mech1IndMotor.h>
 #include <subsys/MechanismTypes.h>
 
-<<<<<<< master
-
-// Third Party Includes
-=======
 //Third Party Includes
->>>>>>> Creates new Subsystems
 
 
 using namespace std;
 
 
-<<<<<<< master
-/// @brief Create the BallTransfer mechanism
-/// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the ball transfer
-BallTransfer::BallTransfer
+/// @brief Creates the Turret mechanism
+/// @param [in] IDragonMotorController* the motor controller that will run the turret
+Turret::Turret
 (
-    shared_ptr<IDragonMotorController>     motorController
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
-                   string("balltransfer.xml"),
-                   string("balltransferNT") ,
-                   motorController )
-{
-}
-=======
-/// @brief Creates the BallTransfer mechanism
-/// @param [in] IDragonMotorController* the motor controller that will run the ball transfer  
-BallTransfer::BallTransfer
-(
-    shared_ptr<IDragonMotorController>     motorController
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER,
-                    string("balltransfer.xml"),
-                    string("balltransferNT"),
+    std::shared_ptr<IDragonMotorController>     motorController
+) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::TURRET,
+                    string("turret.xml"),
+                    string("turretNT"),
                     motorController )
 {
-    
+
 }
-    
->>>>>>> Creates new Subsystems

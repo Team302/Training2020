@@ -13,25 +13,38 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+<<<<<<< master
+=======
+
+>>>>>>> Creates new Subsystems
 // C++ Includes
 #include <memory>
 #include <string>
 
 // FRC includes
 
+<<<<<<< master
 
 // Team 302 includes
+=======
+//Team 302 Includes
+>>>>>>> Creates new Subsystems
 #include <subsys/Intake.h>
 #include <subsys/Mech1IndMotor.h>
 #include <subsys/MechanismTypes.h>
 
+<<<<<<< master
 
 // Third Party Includes
+=======
+//Third Party Includes
+>>>>>>> Creates new Subsystems
 
 
 using namespace std;
 
 
+<<<<<<< master
 /// @brief Create the Intake mechanism
 /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the intake
 /// @param [in] shared_ptr<DragonSolenoid> the solenoid that will deploy the intake
@@ -46,3 +59,25 @@ Intake::Intake
     Mech1Solenoid(solenoid )
 {
 }
+=======
+/// @brief Creates the Intake mechanism
+/// @param [in] IDragonMotorController* the motor controller that will run the ball transfer  
+Intake::Intake
+(
+    shared_ptr<IDragonMotorController>     motorController,
+    std::shared_ptr<DragonSolenoid>             solenoid
+
+) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::INTAKE,
+                    string("Intake.xml"),
+                    string("IntakeNT"),
+                    motorController ),
+    
+    Mech1Solenoid( MechanismTypes::MECHANISM_TYPE::INTAKE,
+                    string("Intake.xml"),
+                    string("IntakeNT"),
+                    solenoid )
+{
+    
+}
+    
+>>>>>>> Creates new Subsystems
