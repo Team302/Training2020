@@ -43,9 +43,6 @@ Intake::Intake
                    string("intake.xml"),
                    string("intakeNT") ,
                    motorController ),
-    Mech1Solenoid(MechanismTypes::MECHANISM_TYPE::INTAKE, 
-                   string("intake.xml"),
-                   string("intakeNT") ,
-                   solenoid )
+    Mech1Solenoid(solenoid )
 {
 }

@@ -22,6 +22,7 @@
 //========================================================================================================
 
 // C++ Includes
+#include <memory>
 #include <string>
 
 // FRC includes
@@ -31,6 +32,8 @@
 
 // Third Party Includes
 
+class IMech1Solenoid;
+class IMech1Servo;
 
 ///	 @interface IMech
 ///  @brief	    Interface for subsystems
@@ -69,11 +72,17 @@ class IMech
         /// @return MechComponents basic mechansim definition
         virtual MechComponents GetMechComponents() const = 0;
 
-        /// @brief indicate that this mechanism has a solenoid
-        virtual void SetHasSolenoid() = 0;
+        /// @brief Add a solenoid to this mechanism 
+        virtual void SetSolenoid
+        (
+            std::unique_ptr<IMech1Solenoid>     solenoidMech
+        ) = 0;
 
-        /// @brief indicate that this mechanism has a servo
-        virtual void SetHasServo() = 0;
+        /// @brief Add a servo to this mechanism
+        virtual void SetServo
+        (
+            std::unique_ptr<IMech1Servo>        servoMech
+        ) = 0;
 
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 

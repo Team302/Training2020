@@ -17,12 +17,15 @@
 #pragma once
 
 // C++ Includes
+#include <memory>
 #include <string>
 
 // FRC includes
 
 // Team 302 includes
 #include <subsys/IMech.h>
+#include <subsys/IMech1Solenoid.h>
+#include <subsys/IMech1Servo.h>
 #include <subsys/MechanismTypes.h>
 
 // Third Party Includes
@@ -50,11 +53,17 @@ class Mech : public IMech
         /// @return MechComponents basic mechansim definition
         IMech::MechComponents GetMechComponents() const override final;
 
-        /// @brief indicate that this mechanism has a solenoid
-        void SetHasSolenoid() override final;
+       /// @brief Add a solenoid to this mechanism 
+        void SetSolenoid
+        (
+            std::unique_ptr<IMech1Solenoid>     solenoidMech
+        ) override final;
 
-        /// @brief indicate that this mechanism has a servo
-        void SetHasServo() override final;
+        /// @brief Add a servo to this mechanism
+        void SetServo
+        (
+            std::unique_ptr<IMech1Servo>        servoMech
+        ) override final;
 
         void Update() override final;
         
@@ -78,4 +87,6 @@ class Mech : public IMech
         std::string                     m_controlFile;
         std::string                     m_ntName;
         IMech::MechComponents           m_components;
+        std::unique_ptr<IMech1Solenoid> m_solenoid;
+        std::unique_ptr<IMech1Servo>    m_servo;
 };

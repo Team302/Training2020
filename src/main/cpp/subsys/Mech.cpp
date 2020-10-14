@@ -42,7 +42,9 @@ Mech::Mech
     m_type( type ),
     m_controlFile( controlFileName ),
     m_ntName( networkTableName ),
-    m_components( components )
+    m_components( components ),
+    m_solenoid(),
+    m_servo()
 {
     if ( controlFileName.empty() )
     {
@@ -87,9 +89,13 @@ IMech::MechComponents Mech::GetMechComponents() const
 }
 
 
-/// @brief indicate that this mechanism has a solenoid
-void Mech::SetHasSolenoid()
+/// @brief Add a solenoid to this mechanism 
+void Mech::SetSolenoid
+(
+    std::unique_ptr<IMech1Solenoid>     solenoidMech
+) 
 {
+    m_solenoid = move( solenoidMech );
     switch (m_components)
     {
         case IMech::MechComponents::SINGLE_IND_MOTOR:
@@ -105,14 +111,18 @@ void Mech::SetHasSolenoid()
             m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID_AND_SERVO;
             break;
         default:
-            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetHasSolenoid" ) );
+            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetSolenoid" ) );
             break;
     }
 }
 
-/// @brief indicate that this mechanism has a servo
-void Mech::SetHasServo() 
+/// @brief Add a servo to this mechanism
+void Mech::SetServo
+(
+    std::unique_ptr<IMech1Servo>        servoMech
+)
 {
+    m_servo = move( servoMech );
     switch (m_components)
     {
         case IMech::MechComponents::SINGLE_IND_MOTOR:
@@ -128,10 +138,11 @@ void Mech::SetHasServo()
             m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID_AND_SERVO;
             break;
         default:
-            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetHasServo" ) );
+            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetServo" ) );
             break;
     }
 }
+
 
 void Mech::Update()
 {
