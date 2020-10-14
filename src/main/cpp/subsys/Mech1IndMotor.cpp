@@ -35,13 +35,14 @@ using namespace std;
 /// @param [in] std::string the name of the network table for logging information
 /// @param [in] std::shared_ptr<IDragonMotorController> motor controller used by this mechanism
 Mech1IndMotor::Mech1IndMotor
-
 (
     MechanismTypes::MECHANISM_TYPE              type,
     std::string                                 controlFileName,
     std::string                                 networkTableName,
     std::shared_ptr<IDragonMotorController>     motorController
-) : m_motor( std::move(motorController) ),
+) : Mech(type, controlFileName, networkTableName, IMech::MechComponents::SINGLE_IND_MOTOR),
+    IMech1IndMotor(),
+    m_motor( std::move(motorController) ),
     m_target( 0.0 )
 {
     if (m_motor.get() == nullptr )
@@ -50,30 +51,9 @@ Mech1IndMotor::Mech1IndMotor
     }
 }
 
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech1IndMotor::GetType() const 
-{
-    return m_type;
-}
-
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-std::string Mech1IndMotor::GetControlFileName() const 
-{
-    return m_controlFile;
-}
 
 
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-std::string Mech1IndMotor::GetNetworkTableName() const 
-{
-    return m_ntName;
-}
-
-
-void Mech1IndMotor::Update()
+void Mech1IndMotor::RunMotor()
 {
     if ( m_motor.get() != nullptr )
     {
@@ -87,7 +67,6 @@ void Mech1IndMotor::UpdateTarget
 )
 {
     m_target = target;
-    Update();
 }
 
 

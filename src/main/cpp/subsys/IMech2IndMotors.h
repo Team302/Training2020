@@ -27,7 +27,6 @@
 
 // Team 302 includes
 #include <controllers/ControlModes.h>
-#include <subsys/IMech.h>
 #include <subsys/MechanismTypes.h>
 #include <controllers/ControlData.h>
 // Third Party Includes
@@ -35,13 +34,11 @@
 
 ///	 @interface IMech2IndMotors
 ///  @brief	    Interface for subsystems
-class IMech2IndMotors : public IMech
+class IMech2IndMotors 
 {
 	public:
-        /// @brief update the output to the mechanism using the current controller and target value(s)
-        /// @return void 
-        virtual void Update() = 0;
-
+        virtual void RunMotors() = 0;
+        
         virtual void UpdateTargets
         (
             double      primary,

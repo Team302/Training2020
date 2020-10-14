@@ -31,15 +31,18 @@ using namespace std;
 /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
 /// @param [in] std::string the name of the file that will set control parameters for this mechanism
 /// @param [in] std::string the name of the network table for logging information
+/// @param [in] IMech::MechType components defining the mechanism
 Mech::Mech
 (
     MechanismTypes::MECHANISM_TYPE  type,
     std::string                     controlFileName,
-    std::string                     networkTableName
+    std::string                     networkTableName,
+    IMech::MechComponents           components
 ) : IMech(), 
     m_type( type ),
     m_controlFile( controlFileName ),
-    m_ntName( networkTableName )
+    m_ntName( networkTableName ),
+    m_components( components )
 {
     if ( controlFileName.empty() )
     {
@@ -74,5 +77,64 @@ std::string Mech::GetControlFileName() const
 std::string Mech::GetNetworkTableName() const 
 {
     return m_ntName;
+}
+
+/// @brief indicate what type of components this mechanism has
+/// @return MechComponents basic mechansim definition
+IMech::MechComponents Mech::GetMechComponents() const
+{
+    return m_components;
+}
+
+
+/// @brief indicate that this mechanism has a solenoid
+void Mech::SetHasSolenoid()
+{
+    switch (m_components)
+    {
+        case IMech::MechComponents::SINGLE_IND_MOTOR:
+            m_components = IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SOLENOID;
+            break;
+        case IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SERVO:
+            m_components  = IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SOLENOID_AND_SERVO;
+            break;
+        case IMech::MechComponents::TWO_IND_MOTORS:
+            m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID;
+            break;
+        case IMech::MechComponents::TWO_IND_MOTORS_WITH_SERVO:
+            m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID_AND_SERVO;
+            break;
+        default:
+            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetHasSolenoid" ) );
+            break;
+    }
+}
+
+/// @brief indicate that this mechanism has a servo
+void Mech::SetHasServo() 
+{
+    switch (m_components)
+    {
+        case IMech::MechComponents::SINGLE_IND_MOTOR:
+            m_components = IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SERVO;
+            break;
+        case IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SOLENOID:
+            m_components  = IMech::MechComponents::SINGLE_IND_MOTOR_WITH_SOLENOID_AND_SERVO;
+            break;
+        case IMech::MechComponents::TWO_IND_MOTORS:
+            m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SERVO;
+            break;
+        case IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID:
+            m_components = IMech::MechComponents::TWO_IND_MOTORS_WITH_SOLENOID_AND_SERVO;
+            break;
+        default:
+            Logger::GetLogger()->LogError( string( "Mech" ), string( "Invalid option found in SetHasServo" ) );
+            break;
+    }
+}
+
+void Mech::Update()
+{
+
 }
 

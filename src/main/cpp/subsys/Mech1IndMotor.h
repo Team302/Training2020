@@ -23,6 +23,7 @@
 
 // Team 302 includes
 #include <subsys/IMech1IndMotor.h>
+#include <subsys/Mech.h>
 #include <subsys/MechanismTypes.h>
 // Third Party Includes
 
@@ -32,7 +33,7 @@ class ControlModes;
 class IDragonMotorController;
 class ControlData;
 
-class Mech1IndMotor : public IMech1IndMotor
+class Mech1IndMotor : public Mech , public IMech1IndMotor
 {
 	public:
         /// @brief Create a generic mechanism wiht 1 independent motor 
@@ -50,21 +51,7 @@ class Mech1IndMotor : public IMech1IndMotor
 	    Mech1IndMotor() = delete;
 	    ~Mech1IndMotor() override = default;
 
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
-        /// @brief update the output to the mechanism using the current controller and target value(s)
-        /// @return void 
-        void Update() override;
+        void RunMotor() override;
 
         void UpdateTarget
         (
@@ -89,9 +76,7 @@ class Mech1IndMotor : public IMech1IndMotor
 
 
     private:
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
+
         std::shared_ptr<IDragonMotorController>     m_motor;
         double                                      m_target;
 };

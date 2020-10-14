@@ -127,7 +127,7 @@ void Mech1MotorState::Run()
 {
     if ( m_mechanism != nullptr && m_control != nullptr )
     {
-        m_mechanism->Update();
+        m_mechanism->RunMotor();
     }
 }
 
