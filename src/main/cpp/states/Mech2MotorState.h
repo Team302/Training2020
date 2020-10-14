@@ -15,6 +15,7 @@
 //====================================================================================================================================================
 
 #pragma once
+#include <memory>
 
 #include <subsys/IMech2IndMotors.h>
 #include <states/IState.h>
@@ -27,10 +28,10 @@ class Mech2MotorState : public IState
 
         Mech2MotorState
         (
-            IMech2IndMotors*                mechanism,
-            ControlData*                    control,
-            double                          primaryTarget,
-            double                          secondaryTarget
+            std::shared_ptr<IMech2IndMotors>    mechanism,
+            ControlData*                        control,
+            double                              primaryTarget,
+            double                              secondaryTarget
         );
         Mech2MotorState() = delete;
         ~Mech2MotorState() = default;
@@ -41,10 +42,10 @@ class Mech2MotorState : public IState
 
     private:
 
-        IMech2IndMotors*                m_mechanism;
-        ControlData*                    m_control;
-        double                          m_primaryTarget;
-        double                          m_secondaryTarget;
-        bool                            m_positionBased;
-        bool                            m_speedBased;
+        std::shared_ptr<IMech2IndMotors>    m_mechanism;
+        ControlData*                        m_control;
+        double                              m_primaryTarget;
+        double                              m_secondaryTarget;
+        bool                                m_positionBased;
+        bool                                m_speedBased;
 };

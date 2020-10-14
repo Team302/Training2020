@@ -37,19 +37,19 @@ using namespace std;
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
 Mech2MotorState::Mech2MotorState
 (
-    IMech2IndMotors*                mechanism,
+    shared_ptr<IMech2IndMotors>     mechanism,
     ControlData*                    control,
     double                          primaryTarget,
     double                          secondaryTarget
 ) : IState(),
-    m_mechanism( mechanism ),
+    m_mechanism( move(mechanism) ),
     m_control( control ),
     m_primaryTarget( primaryTarget ),
     m_secondaryTarget( secondaryTarget ),
     m_positionBased( false ),
     m_speedBased( false )
 {
-    if ( mechanism == nullptr )
+    if ( mechanism.get() == nullptr )
     {
         Logger::GetLogger()->LogError( string("Mech2MotorState::Mech2MotorState"), string("no mechanism"));
     }    
@@ -117,43 +117,43 @@ Mech2MotorState::Mech2MotorState
 
 void Mech2MotorState::Init()
 {
-    if ( m_mechanism != nullptr && m_control != nullptr )
+    if ( m_mechanism.get() != nullptr && m_control != nullptr )
     {
-        m_mechanism->SetControlConstants( m_control );
-        m_mechanism->UpdateTargets( m_primaryTarget, m_secondaryTarget );
+        m_mechanism.get()->SetControlConstants( m_control );
+        m_mechanism.get()->UpdateTargets( m_primaryTarget, m_secondaryTarget );
     }
 }
 
 
 void Mech2MotorState::Run()           
 {
-    if ( m_mechanism != nullptr )
+    if ( m_mechanism.get() != nullptr )
     {
-        m_mechanism->RunMotors();
+        m_mechanism.get()->RunMotors();
     }
 }
 
 bool Mech2MotorState::AtTarget() const
 {
     auto same = true;
-    if ( m_mechanism != nullptr )
+    if ( m_mechanism.get() != nullptr )
     {
         if ( m_positionBased && !m_speedBased )
         {
-            same = ( abs( m_primaryTarget - m_mechanism->GetPrimaryPosition())     < 1.0 &&
-                     abs( m_secondaryTarget - m_mechanism->GetSecondaryPosition()) < 1.0 );
+            same = ( abs( m_primaryTarget - m_mechanism.get()->GetPrimaryPosition())     < 1.0 &&
+                     abs( m_secondaryTarget - m_mechanism.get()->GetSecondaryPosition()) < 1.0 );
         }
         else if ( !m_positionBased && m_speedBased )
         {
-            same = ( abs( m_primaryTarget - m_mechanism->GetPrimarySpeed())     < 1.0 &&
-                     abs( m_secondaryTarget - m_mechanism->GetSecondarySpeed()) < 1.0 );
+            same = ( abs( m_primaryTarget - m_mechanism.get()->GetPrimarySpeed())     < 1.0 &&
+                     abs( m_secondaryTarget - m_mechanism.get()->GetSecondarySpeed()) < 1.0 );
         }
         else if ( m_positionBased && m_speedBased )
         {
-            same = ( ( abs( m_primaryTarget - m_mechanism->GetPrimaryPosition())     < 1.0 &&
-                       abs( m_secondaryTarget - m_mechanism->GetSecondaryPosition()) < 1.0 ) ||
-                     ( abs( m_primaryTarget - m_mechanism->GetPrimarySpeed())     < 1.0 &&
-                       abs( m_secondaryTarget - m_mechanism->GetSecondarySpeed()) < 1.0 ) );
+            same = ( ( abs( m_primaryTarget - m_mechanism.get()->GetPrimaryPosition())     < 1.0 &&
+                       abs( m_secondaryTarget - m_mechanism.get()->GetSecondaryPosition()) < 1.0 ) ||
+                     ( abs( m_primaryTarget - m_mechanism.get()->GetPrimarySpeed())     < 1.0 &&
+                       abs( m_secondaryTarget - m_mechanism.get()->GetSecondarySpeed()) < 1.0 ) );
         }
     }
     return same;

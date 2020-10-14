@@ -37,17 +37,17 @@ using namespace std;
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
 Mech1MotorState::Mech1MotorState
 (
-    IMech1IndMotor*                 mechanism,
+    shared_ptr<IMech1IndMotor>      mechanism,
     ControlData*                    control,
     double                          target
 ) : IState(),
-    m_mechanism( mechanism ),
+    m_mechanism( move(mechanism) ),
     m_control( control ),
     m_target( target ),
     m_positionBased( false ),
     m_speedBased( false )
 {
-    if ( mechanism == nullptr )
+    if ( mechanism.get() == nullptr )
     {
         Logger::GetLogger()->LogError( string("Mech1MotorState::Mech1MotorState"), string("no mechanism"));
     }    
@@ -115,39 +115,39 @@ Mech1MotorState::Mech1MotorState
 
 void Mech1MotorState::Init()
 {
-    if ( m_mechanism != nullptr && m_control != nullptr )
+    if ( m_mechanism.get() != nullptr && m_control != nullptr )
     {
-        m_mechanism->SetControlConstants( m_control );
-        m_mechanism->UpdateTarget( m_target );
+        m_mechanism.get()->SetControlConstants( m_control );
+        m_mechanism.get()->UpdateTarget( m_target );
     }
 }
 
 
 void Mech1MotorState::Run()           
 {
-    if ( m_mechanism != nullptr && m_control != nullptr )
+    if ( m_mechanism.get() != nullptr && m_control != nullptr )
     {
-        m_mechanism->RunMotor();
+        m_mechanism.get()->RunMotor();
     }
 }
 
 bool Mech1MotorState::AtTarget() const
 {
     auto same = true;
-    if ( m_mechanism != nullptr )
+    if ( m_mechanism.get() != nullptr )
     {
         if ( m_positionBased && !m_speedBased )
         {
-            same = ( abs( m_target - m_mechanism->GetPosition())  < 1.0 );
+            same = ( abs( m_target - m_mechanism.get()->GetPosition())  < 1.0 );
         }
         else if ( !m_positionBased && m_speedBased )
         {
-            same = ( abs( m_target - m_mechanism->GetSpeed()) < 1.0 );
+            same = ( abs( m_target - m_mechanism.get()->GetSpeed()) < 1.0 );
         }
         else if ( m_positionBased && m_speedBased )
         {
-            same = ( ( abs( m_target - m_mechanism->GetPosition())  < 1.0 ) ||
-                     ( abs( m_target - m_mechanism->GetSpeed())     < 1.0 ) );
+            same = ( ( abs( m_target - m_mechanism.get()->GetPosition())  < 1.0 ) ||
+                     ( abs( m_target - m_mechanism.get()->GetSpeed())     < 1.0 ) );
         }
     }
     return same;

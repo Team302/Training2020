@@ -26,6 +26,7 @@
 // C++ Includes
 #include <map>
 #include <memory>
+#include <string>
 
 // FRC includes
 
@@ -42,16 +43,9 @@
 #include <hw/DragonDigitalInput.h>
 #include <subsys/ControlPanel.h>
 #include <subsys/MechanismFactory.h>
-//#include <subsys/HookDelivery.h>
-#include <subsys/IMechanism.h>
+#include <subsys/IMech.h>
 #include <subsys/MechanismTypes.h>
-//#include <subsys/Intake.h>
 #include <utils/Logger.h>
-//#include <subsys/Impeller.h>
-//#include <subsys/BallTransfer.h>
-//#include <subsys/Turret.h>
-//#include <subsys/Shooter.h>
-//#include <subsys/ShooterHood.h>
 
 // Third Party Includes
 #include <rev/ColorSensorV3.h>
@@ -89,14 +83,14 @@ MechanismFactory::MechanismFactory()
 
 /// @brief      Find the requested mechanism
 /// @param [in] MechanismTypes::MECHANISM_TYPE  type - the type of mechanism to retrieve
-/// @return     IMechanism*  pointer to the mechanism or nullptr if mechanism doesn't exist.
-IMechanism*  MechanismFactory::GetIMechanism
+/// @return     IMech*  pointer to the mechanism or nullptr if mechanism doesn't exist.
+IMech*  MechanismFactory::GetIMechanism
 (
 	MechanismTypes::MECHANISM_TYPE			type		
 )
 {
     // See if the mechanism was created already, if it wasn't create it
-	IMechanism* subsys = m_mechanisms[type];
+	IMech* subsys = m_mechanisms[type];
 	if ( subsys == nullptr )
     {
         string msg = "mechanism doesn't exists";
@@ -115,10 +109,12 @@ IMechanism*  MechanismFactory::GetIMechanism
 /// @param [in] 
 /// @param [in] 
 /// @param [in] 
-/// @return  IMechanism*  pointer to the mechanism or nullptr if mechanism couldn't be created.
-IMechanism*  MechanismFactory::CreateIMechanism
+/// @return  IMech*  pointer to the mechanism or nullptr if mechanism couldn't be created.
+IMech*  MechanismFactory::CreateIMechanism
 (
 	MechanismTypes::MECHANISM_TYPE			type,
+    string                                  controlFileName,
+    string                                  networkTableName,	
 	const IDragonMotorControllerMap&        motorControllers,   // <I> - Motor Controllers
 	const DragonSolenoidMap&                solenoids,
 	const ServoMap&						    servos,
@@ -129,7 +125,7 @@ IMechanism*  MechanismFactory::CreateIMechanism
 )
 {
     // See if the mechanism was created already, if it wasn't create it
-	IMechanism* subsys = m_mechanisms[type];
+	IMech* subsys = m_mechanisms[type];
 	if ( subsys != nullptr )
     {
         string msg = "mechanism already exists";
@@ -138,7 +134,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
     }
     else
     {
-		/**
         // Create the mechanism
         switch ( type )
         {
@@ -150,8 +145,7 @@ IMechanism*  MechanismFactory::CreateIMechanism
 					auto solenoid = GetSolenoid( solenoids, SolenoidUsage::SOLENOID_USAGE::INTAKE );
 					if ( solenoid.get() != nullptr )
 					{
-						auto intake = new Intake( motor, solenoid );
-						subsys = dynamic_cast<IMechanism*>( intake );
+
 					}
 				}
             }
@@ -162,8 +156,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::IMPELLER );
 				if ( motor.get() != nullptr )
 				{
-					auto impeller = new Impeller(motor, canCoder);
-					subsys = dynamic_cast<IMechanism*>(impeller);
 				}
 			}
 			break;
@@ -173,8 +165,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::BALL_TRANSFER );
 				if ( motor.get() != nullptr )
 				{
-					auto ballTrans = new BallTransfer( motor );
-					subsys = dynamic_cast<IMechanism*>( ballTrans );
 				}
 			}
 			break;			
@@ -185,8 +175,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto motor2 = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_2 );
 				if ( motor1.get() != nullptr && motor2.get() != nullptr )
 				{
-					auto shooter = new Shooter(motor1, motor2);
-					subsys = dynamic_cast<IMechanism*>(shooter);
 				}
 			}
 			break;			
@@ -196,8 +184,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto shooterHoodMotor = GetMotorController ( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::SHOOTER_HOOD );
 				if ( shooterHoodMotor.get() != nullptr )
 				{
-					auto shooterHood = new ShooterHood( shooterHoodMotor, canCoder);
-					subsys = dynamic_cast<IMechanism*>(shooterHood);
 				}
 			}
 			break;		
@@ -212,9 +198,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 					{
 						if ( colorSensor !=nullptr )
 						{
-							//todo color sensor pointer needs to be added to the constructor
-							auto controlPanel = new ControlPanel( motor, solenoid, colorSensor );
-							subsys = dynamic_cast<IMechanism*>(controlPanel);
 						}
 					}
 				}
@@ -236,8 +219,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::TURRET);
 				if(motor.get() != nullptr)
 				{
-					auto turret = new Turret(motor);
-					subsys = dynamic_cast<IMechanism*>(turret);
 				}
 			}
 			break;
@@ -247,8 +228,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController(motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::HOOK_DELIVERY);
 				if(motor.get() != nullptr)
 				{
-					auto hook = new HookDelivery(motor);
-					subsys = dynamic_cast<IMechanism*>(hook);
 				}
 			}
 			break;
@@ -262,7 +241,6 @@ IMechanism*  MechanismFactory::CreateIMechanism
             break;
         }
 		m_mechanisms[type] = subsys;
-		**/
     }
 	
 

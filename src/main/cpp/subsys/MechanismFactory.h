@@ -28,6 +28,7 @@
 // C++ Includes
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 // FRC includes
@@ -48,7 +49,7 @@ class DragonDigitalInput;
 class DragonServo;
 class DragonSolenoid;
 class IDragonMotorController;
-class IMechanism;
+class IMech;
 
 namespace ctre
 {
@@ -76,10 +77,10 @@ class MechanismFactory
 		//=====================================================================================
 		/// Method:         GetIMechanism
 		/// Description:    Find or create the requested mechanism
-		/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-		///                                 doesn't exist and cannot be created.
+		/// Returns:        IMech*     pointer to the mechanism or nullptr if mechanism 
+		///                            doesn't exist and cannot be created.
 		//=====================================================================================
-		IMechanism* GetIMechanism
+		IMech* GetIMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE			type		// <I> - manipulator type
 		);
@@ -87,12 +88,14 @@ class MechanismFactory
 		//=====================================================================================
 		/// Method:         CreateIMechanism
 		/// Description:    Find or create the requested mechanism
-		/// Returns:        IMechanism*     pointer to the mechanism or nullptr if mechanism 
-		///                                 doesn't exist and cannot be created.
+		/// Returns:        IMech*     pointer to the mechanism or nullptr if mechanism 
+		///                            doesn't exist and cannot be created.
 		//=====================================================================================
-		IMechanism*  CreateIMechanism
+		IMech*  CreateIMechanism
 		(
 			MechanismTypes::MECHANISM_TYPE							type,
+            std::string                                 			controlFileName,
+            std::string                                 			networkTableName,			
 			const IDragonMotorControllerMap&        				motorControllers,   // <I> - Motor Controllers
 			const DragonSolenoidMap&                				solenoids,
 			const ServoMap&						    				servos,
@@ -134,6 +137,6 @@ class MechanismFactory
 
 		static MechanismFactory*	m_mechanismFactory;
 
-		std::vector<IMechanism*> m_mechanisms;
+		std::vector<IMech*> m_mechanisms;
 
 };

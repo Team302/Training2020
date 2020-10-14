@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <subsys/IMech1IndMotor.h>
 #include <states/IState.h>
 #include <controllers/ControlData.h>
@@ -27,7 +29,7 @@ class Mech1MotorState : public IState
 
         Mech1MotorState
         (
-            IMech1IndMotor*                 mechanism,
+            std::shared_ptr<IMech1IndMotor> mechanism,
             ControlData*                    control,
             double                          target
         );
@@ -40,7 +42,7 @@ class Mech1MotorState : public IState
 
     private:
 
-        IMech1IndMotor*                 m_mechanism;
+        std::shared_ptr<IMech1IndMotor> m_mechanism;
         ControlData*                    m_control;
         double                          m_target;
         bool                            m_positionBased;

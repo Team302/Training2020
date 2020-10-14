@@ -21,7 +21,7 @@
 // FRC includes
 
 // Team302 includes
-#include <subsys/IMechanism.h>
+#include <subsys/IMech.h>
 
 // Third Party includes
 #include <pugixml/pugixml.hpp>
@@ -37,8 +37,8 @@ class MechanismDefn
 
     	/// @brief  Parse the mechanism element (and it children).  When this is done the mechanism exists 
         ///         that can be retrieved from the factory.
-    	/// @return IMechanism*  pointer to the mechanism or nullptr if there is an error
-        IMechanism* ParseXML
+    	/// @return IMech*  pointer to the mechanism or nullptr if there is an error
+        IMech* ParseXML
         (
             pugi::xml_node      mechanismNode
         );

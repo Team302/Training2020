@@ -45,7 +45,7 @@
 #include <xmlhw/ServoDefn.h> 
 #include <xmlhw/SolenoidDefn.h>
 
-#include <subsys/IMechanism.h>
+#include <subsys/IMech.h>
 #include <subsys/MechanismTypes.h>
 
 #include <utils/Logger.h>
@@ -67,13 +67,13 @@ using namespace std;
 
 /// @brief  Parse a Mechanism XML element and create an IMechanism from its definition.
 /// @return IMechanism*   pointer to the mechanism
-IMechanism* MechanismDefn::ParseXML
+IMech* MechanismDefn::ParseXML
 (
     xml_node      mechanismNode
 )
 {
     // initialize outputs
-    IMechanism* mech = nullptr;
+    IMech* mech = nullptr;
 
     // initialize attributes
     MechanismTypes::MECHANISM_TYPE type = MechanismTypes::UNKNOWN_MECHANISM;
@@ -225,7 +225,7 @@ IMechanism* MechanismDefn::ParseXML
     if ( !hasError )
     {
         MechanismFactory* factory =  MechanismFactory::GetMechanismFactory();
-        mech = factory->CreateIMechanism( type, motors, solenoids, servos, digitalInputs, analogInputs, colorSensor, canCoder );
+        mech = factory->CreateIMechanism( type, std::string(""), std::string(""), motors, solenoids, servos, digitalInputs, analogInputs, colorSensor, canCoder );
     }
 
     return mech;

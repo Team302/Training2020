@@ -16,13 +16,18 @@
 
 // C++ Includes
 #include <memory>
+#include <utility>
 
 // FRC includes
 
 // Team 302 includes
 #include <states/IState.h>
+#include <states/Mech1MotorSolenoidState.h>
+#include <states/Mech1MotorState.h>
 #include <states/MechSolenoidState.h>
-#include <subsys/IMech1Solenoid.h>
+#include <controllers/ControlData.h>
+#include <controllers/MechanismTargetData.h>
+#include <subsys/IMech1IndMotor.h>
 #include <utils/Logger.h>
 
 #include <gamepad/TeleopControl.h>
@@ -31,49 +36,48 @@
 
 using namespace std;
 
-/// @class MechSolenoidState
+/// @class Mech1MotorSolenoidState
 /// @brief information about the control (open loop, closed loop position, closed loop velocity, etc.) for a mechanism state
-MechSolenoidState::MechSolenoidState
+Mech1MotorSolenoidState::Mech1MotorSolenoidState
 (
-    shared_ptr<IMech1Solenoid>              mechanism,
-    MechanismTargetData::SOLENOID           solState
+    std::shared_ptr<IMech1IndMotor>             motorMech,
+    std::shared_ptr<IMech1Solenoid>             solenoidMech,    
+    ControlData*                                control,
+    double                                      target,
+    MechanismTargetData::SOLENOID               solState
 ) : IState(),
-    m_mechanism( move(mechanism) ),
-    m_solenoidState( solState )
-{
-    if ( mechanism == nullptr )
-    {
-        Logger::GetLogger()->LogError( string("MechSolenoidState::MechSolenoidState"), string("no mechanism"));
-    }    
+    m_motor( make_shared<Mech1MotorState>(motorMech, control, target)),
+    m_solenoid(make_shared<MechSolenoidState>(solenoidMech, solState))
+{    
 }
 
-void MechSolenoidState::Init()
+void Mech1MotorSolenoidState::Init()
 {
-}
-
-
-void MechSolenoidState::Run()           
-{
-    if ( m_mechanism.get() != nullptr )
+    if ( m_motor.get() != nullptr )
     {
-        switch ( m_solenoidState )
-        {
-            case MechanismTargetData::SOLENOID::OFF:
-                m_mechanism.get()->ActivateSolenoid( false );
-                break;
-            
-            case MechanismTargetData::SOLENOID::ON:
-                m_mechanism.get()->ActivateSolenoid( true );
-                break;
-
-            default:
-                break;
-        }   
+        m_motor.get()->Init();
+    }
+    if ( m_solenoid.get() != nullptr )
+    {
+        m_solenoid.get()->Init();
     }
 }
 
-bool MechSolenoidState::AtTarget() const
+
+void Mech1MotorSolenoidState::Run()           
 {
-    return true;
+    if ( m_motor.get() != nullptr )
+    {
+        m_motor.get()->Run();
+    }
+    if ( m_solenoid.get() != nullptr )
+    {
+        m_solenoid.get()->Run();
+    }
+}
+
+bool Mech1MotorSolenoidState::AtTarget() const
+{
+    return m_motor.get() != nullptr ? m_motor.get()->AtTarget() : true;
 }
 
