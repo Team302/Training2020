@@ -24,14 +24,14 @@
 
 // Team 302 includes
 #include <subsys/IMech2IndMotors.h>
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech.h>
 
 // Third Party Includes
 
 class ControlData;
 class IDragonMotorController;
 
-class Mech2IndMotors : public IMech2IndMotors
+class Mech2IndMotors : public Mech, public IMech2IndMotors
 {
 	public:
         /// @brief Create a generic mechanism wiht 2 independent motors 
@@ -51,21 +51,9 @@ class Mech2IndMotors : public IMech2IndMotors
 	    Mech2IndMotors() = delete;
 	    ~Mech2IndMotors() = default;
 
-        /// @brief          Indicates the type of mechanism this is
-        /// @return         MechanismTypes::MECHANISM_TYPE
-        MechanismTypes::MECHANISM_TYPE GetType() const override;
-
-        /// @brief indicate the file used to get the control parameters from
-        /// @return std::string the name of the file 
-        std::string GetControlFileName() const override;
-
-        /// @brief indicate the Network Table name used to setting tracking parameters
-        /// @return std::string the name of the network table 
-        std::string GetNetworkTableName() const override;
-
         /// @brief update the output to the mechanism using the current controller and target value(s)
         /// @return void 
-        void Update() override;
+        void RunMotors() override;
 
         void UpdateTargets
         (
@@ -99,9 +87,6 @@ class Mech2IndMotors : public IMech2IndMotors
 
 
     private: 
-        MechanismTypes::MECHANISM_TYPE              m_type;
-        std::string                                 m_controlFile;
-        std::string                                 m_ntName;
         std::shared_ptr<IDragonMotorController>     m_primary;
         std::shared_ptr<IDragonMotorController>     m_secondary;
         double                                      m_primaryTarget;

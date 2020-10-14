@@ -23,7 +23,6 @@
 
 // C++ Includes
 #include <string>
-#include <vector>
 
 // FRC includes
 
@@ -39,6 +38,18 @@ class IMech
 {
 	public:
 
+        enum MechComponents
+        {
+	    SINGLE_IND_MOTOR,
+            TWO_IND_MOTORS,
+            SINGLE_IND_MOTOR_WITH_SOLENOID,
+            TWO_IND_MOTORS_WITH_SOLENOID,
+            SINGLE_IND_MOTOR_WITH_SERVO,
+            TWO_IND_MOTORS_WITH_SERVO,
+            SINGLE_IND_MOTOR_WITH_SOLENOID_AND_SERVO,
+            TWO_IND_MOTORS_WITH_SOLENOID_AND_SERVO
+        };
+
         /// @brief          Indicates the type of mechanism this is
         /// @return         MechanismTypes::MECHANISM_TYPE
         virtual MechanismTypes::MECHANISM_TYPE GetType() const = 0;
@@ -53,8 +64,21 @@ class IMech
         
 	    IMech() = default;
 	    virtual ~IMech() = default;
+
+        /// @brief indicate what type of components this mechanism has
+        /// @return MechComponents basic mechansim definition
+        virtual MechComponents GetMechComponents() const = 0;
+
+        /// @brief indicate that this mechanism has a solenoid
+        virtual void SetHasSolenoid() = 0;
+
+        /// @brief indicate that this mechanism has a servo
+        virtual void SetHasServo() = 0;
+
+        /// @brief update the output to the mechanism using the current controller and target value(s)
+        /// @return void 
+        virtual void Update() = 0;
 };
-typedef std::vector<IMech*> IMechVector;
 
 
 

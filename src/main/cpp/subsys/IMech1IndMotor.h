@@ -27,7 +27,6 @@
 
 // Team 302 includes
 #include <controllers/ControlModes.h>
-#include <subsys/IMech.h>
 #include <subsys/MechanismTypes.h>
 #include <controllers/ControlData.h>
 // Third Party Includes
@@ -35,12 +34,10 @@
 
 ///	 @interface IMech1IndMotor
 ///  @brief	    Interface for subsystems
-class IMech1IndMotor : public IMech
+class IMech1IndMotor 
 {
 	public:
-        /// @brief update the output to the mechanism using the current controller and target value(s)
-        /// @return void 
-        virtual void Update() = 0;
+        virtual void RunMotor() = 0;
 
         virtual void UpdateTarget
         (
@@ -53,7 +50,7 @@ class IMech1IndMotor : public IMech
 
         /// @brief  Get the current speed of the mechanism.  The value is in inches per second or degrees per second.
         /// @return double	speed in inches/second (translating mechanisms) or degrees/second (rotating mechanisms)
-        virtual double GetSpeed() const =0;
+        virtual double GetSpeed() const = 0;
 
         /// @brief  Set the control constants (e.g. PIDF values).
         /// @param [in] ControlData*                                   pid:  the control constants

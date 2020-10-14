@@ -26,16 +26,13 @@
 // FRC includes
 
 // Team 302 includes
-#include <controllers/ControlModes.h>
-#include <subsys/IMech.h>
-#include <subsys/MechanismTypes.h>
-#include <controllers/ControlData.h>
+
 // Third Party Includes
 
 
 ///	 @interface IMech1Solenoid
 ///  @brief	    Interface for subsystems
-class IMech1Solenoid : public IMech
+class IMech1Solenoid 
 {
 	public:
         /// @brief      Activate/deactivate pneumatic solenoid

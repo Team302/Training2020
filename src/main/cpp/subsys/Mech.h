@@ -46,15 +46,29 @@ class Mech : public IMech
         /// @return std::string the name of the network table 
         std::string GetNetworkTableName() const override;
 
+        /// @brief indicate what type of components this mechanism has
+        /// @return MechComponents basic mechansim definition
+        IMech::MechComponents GetMechComponents() const override final;
+
+        /// @brief indicate that this mechanism has a solenoid
+        void SetHasSolenoid() override final;
+
+        /// @brief indicate that this mechanism has a servo
+        void SetHasServo() override final;
+
+        void Update() override final;
+        
         /// @brief create the general mechanism
         /// @param [in] MechanismTypes::MECHANISM_TYPE the type of mechansim
         /// @param [in] std::string the name of the file that will set control parameters for this mechanism
         /// @param [in] std::string the name of the network table for logging information
+        /// @param [in] MechComponents the components the mechanism has
         Mech
         (
             MechanismTypes::MECHANISM_TYPE  type,
             std::string                     controlFileName,
-            std::string                     networkTableName
+            std::string                     networkTableName,
+            IMech::MechComponents           components
         );
 	    Mech() = delete;
 	    virtual ~Mech() = default;
@@ -63,4 +77,5 @@ class Mech : public IMech
         MechanismTypes::MECHANISM_TYPE  m_type;
         std::string                     m_controlFile;
         std::string                     m_ntName;
+        IMech::MechComponents           m_components;
 };

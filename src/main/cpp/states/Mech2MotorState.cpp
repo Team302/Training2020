@@ -129,7 +129,7 @@ void Mech2MotorState::Run()
 {
     if ( m_mechanism != nullptr )
     {
-        m_mechanism->Update();
+        m_mechanism->RunMotors();
     }
 }
 

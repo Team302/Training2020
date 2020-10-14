@@ -21,7 +21,7 @@
 // FRC includes
 
 // Team 302 includes
-#include <subsys/Mech1IndMotor.h>
+#include <subsys/Mech.h>
 #include <subsys/Mech2IndMotors.h>
 #include <subsys/IMech2IndMotors.h>
 #include <controllers/ControlData.h>
@@ -46,7 +46,8 @@ Mech2IndMotors::Mech2IndMotors
     std::string                                 networkTableName,
     shared_ptr<IDragonMotorController>          primaryMotor,
     shared_ptr<IDragonMotorController>          secondaryMotor
-) : IMech2IndMotors(),
+) : Mech(type, controlFileName, networkTableName, IMech::MechComponents::TWO_IND_MOTORS ),
+    IMech2IndMotors(),
     m_primary( std::move(primaryMotor)),
     m_secondary( std::move(secondaryMotor)),
     m_primaryTarget(0.0),
@@ -63,32 +64,9 @@ Mech2IndMotors::Mech2IndMotors
     }
 }
 
-/// @brief          Indicates the type of mechanism this is
-/// @return         MechanismTypes::MECHANISM_TYPE
-MechanismTypes::MECHANISM_TYPE Mech2IndMotors::GetType() const 
-{
-    return m_type;
-}
-
-/// @brief indicate the file used to get the control parameters from
-/// @return std::string the name of the file 
-std::string Mech2IndMotors::GetControlFileName() const 
-{
-    return m_controlFile;
-}
-
-
-/// @brief indicate the network table name used to for logging parameters
-/// @return std::string the name of the network table 
-std::string Mech2IndMotors::GetNetworkTableName() const 
-{
-    return m_ntName;
-}
-
-
 /// @brief update the output to the mechanism using the current controller and target value(s)
 /// @return void 
-void Mech2IndMotors::Update()
+void Mech2IndMotors::RunMotors()
 {
     if ( m_primary.get() != nullptr )
     {
@@ -109,7 +87,6 @@ void Mech2IndMotors::UpdateTargets
 {
     m_primaryTarget = primary;
     m_secondaryTarget = secondary;
-    Update();
 }
 
 
