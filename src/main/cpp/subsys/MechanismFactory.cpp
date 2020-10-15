@@ -41,6 +41,7 @@
 #include <hw/DragonServo.h>
 #include <hw/DragonAnalogInput.h>
 #include <hw/DragonDigitalInput.h>
+#include <subsys/BallTransfer.h>
 #include <subsys/ControlPanel.h>
 #include <subsys/MechanismFactory.h>
 #include <subsys/IMech.h>
@@ -165,6 +166,8 @@ IMech*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::BALL_TRANSFER );
 				if ( motor.get() != nullptr )
 				{
+					auto transfer = new BallTransfer( motor );
+					subsys = dynamic_cast<IMech*>(transfer);
 				}
 			}
 			break;			
