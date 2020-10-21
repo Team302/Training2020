@@ -13,37 +13,50 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //====================================================================================================================================================
 
+<<<<<<< HEAD
 <<<<<<< master
 =======
 
 >>>>>>> Creates new Subsystems
+=======
+
+>>>>>>> BigChief
 // C++ Includes
 #include <memory>
 #include <string>
 
 // FRC includes
 
+<<<<<<< HEAD
 <<<<<<< master
 
 // Team 302 includes
 =======
 //Team 302 Includes
 >>>>>>> Creates new Subsystems
+=======
+//Team 302 Includes
+>>>>>>> BigChief
 #include <subsys/Intake.h>
 #include <subsys/Mech1IndMotor.h>
 #include <subsys/MechanismTypes.h>
 
+<<<<<<< HEAD
 <<<<<<< master
 
 // Third Party Includes
 =======
 //Third Party Includes
 >>>>>>> Creates new Subsystems
+=======
+//Third Party Includes
+>>>>>>> BigChief
 
 
 using namespace std;
 
 
+<<<<<<< HEAD
 <<<<<<< master
 /// @brief Create the Intake mechanism
 /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the intake
@@ -60,6 +73,8 @@ Intake::Intake
 {
 }
 =======
+=======
+>>>>>>> BigChief
 /// @brief Creates the Intake mechanism
 /// @param [in] IDragonMotorController* the motor controller that will run the ball transfer  
 Intake::Intake
@@ -79,5 +94,9 @@ Intake::Intake
 {
     
 }
+<<<<<<< HEAD
     
 >>>>>>> Creates new Subsystems
+=======
+    
+>>>>>>> BigChief
