@@ -36,10 +36,9 @@ using namespace std;
 /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the ball transfer
 BallTransfer::BallTransfer
 (
-    shared_ptr<IDragonMotorController>     motorController
-) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, 
-                   string("balltransfer.xml"),
-                   string("balltransferNT") ,
-                   motorController )
+    shared_ptr<IDragonMotorController>     motorController,
+    string                                 controlFileName,
+    string                                 networkTableName
+) : Mech1IndMotor( MechanismTypes::MECHANISM_TYPE::BALL_TRANSFER, controlFileName, networkTableName, motorController )
 {
 }

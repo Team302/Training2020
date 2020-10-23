@@ -39,7 +39,9 @@ class BallTransfer :  public Mech1IndMotor
         /// @param [in] shared_ptr<IDragonMotorController> the motor controller that will run the ball transfer
         BallTransfer
         (
-            std::shared_ptr<IDragonMotorController>     motorController
+            std::shared_ptr<IDragonMotorController>     motorController,
+            std::string                                 controlFileName,
+            std::string                                 networkTableName
         );
 
         /// @brief Destroy the object and free memory

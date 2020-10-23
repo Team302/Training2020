@@ -77,6 +77,7 @@ IMech* MechanismDefn::ParseXML
 
     // initialize attributes
     MechanismTypes::MECHANISM_TYPE type = MechanismTypes::UNKNOWN_MECHANISM;
+    string configFile;
 
     bool hasError       = false;
 
@@ -135,6 +136,10 @@ IMech* MechanismDefn::ParseXML
                     Logger::GetLogger()->LogError( "MechanismDefn::ParseXML", msg );
                     hasError = true;
             }
+        }
+        else if ( strcmp( attr.name(), "configFile") == 0 )
+        {
+            configFile = string(attr.as_string());
         }
         else
         {
@@ -225,7 +230,7 @@ IMech* MechanismDefn::ParseXML
     if ( !hasError )
     {
         MechanismFactory* factory =  MechanismFactory::GetMechanismFactory();
-        mech = factory->CreateIMechanism( type, std::string(""), std::string(""), motors, solenoids, servos, digitalInputs, analogInputs, colorSensor, canCoder );
+        mech = factory->CreateIMechanism( type, configFile, std::string(""), motors, solenoids, servos, digitalInputs, analogInputs, colorSensor, canCoder );
     }
 
     return mech;

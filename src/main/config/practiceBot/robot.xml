@@ -148,7 +148,8 @@
      Mechanisms
      ==================================================== -->    
     
-	<mechanism type="INTAKE">
+	<mechanism type="INTAKE"
+			   configFile="intake.xml">
 		<motor usage="INTAKE"
 				canId="11"
 				pdpID="7"
@@ -180,7 +181,8 @@
     		      reversed="false" />
 	</mechanism -->    
 	
-	<mechanism type="IMPELLER">
+	<mechanism type="IMPELLER"
+			   configFile="impeller.xml">
 		<motor usage="IMPELLER"
 				canId="7"
 				pdpID="7"
@@ -204,7 +206,8 @@
 				  canId="30"/>
 	</mechanism>
     
-	<mechanism type="BALL_TRANSFER">
+	<mechanism type="BALL_TRANSFER"
+			   configFile="balltransfer.xml">
     	<!-- solenoid usage="BALL_TRANSFER"
     		      canId="50"
     		      channel="3"
@@ -229,7 +232,8 @@
 				reverselimitswitchopen="true"/>
 	</mechanism>
     
-	<mechanism type="SHOOTER">
+	<mechanism type="SHOOTER"
+			   configFile="shooter.xml">
 		<motor usage="SHOOTER_1"
 				canId="16"
 				pdpID="0"
@@ -270,7 +274,8 @@
 				reverselimitswitchopen="true"/>
 	</mechanism>
     
-	<mechanism type="SHOOTER_HOOD">
+	<mechanism type="SHOOTER_HOOD"
+			   configFile="shooterhood.xml">
     	<!-- solenoid usage="SHOOTER_HOOD"
     		      canId="50"
     		      channel="7"
@@ -297,7 +302,8 @@
 				  canId="31"/>
 	</mechanism>
     
-	<mechanism type="TURRET">
+	<mechanism type="TURRET"
+			   configFile="turret.xml">
 		<motor usage="TURRET"
 				canId="5"
 				pdpID="5"
@@ -319,7 +325,8 @@
 		<!-- todo need to add limit switches -->
 	</mechanism>
     
-	<mechanism type="HOOK_DELIVERY">
+	<mechanism type="HOOK_DELIVERY"
+			   configFile="hookdelivery.xml">
 		<motor usage="HOOK_DELIVERY"
 				canId="6"
 				pdpID="6"
@@ -340,7 +347,8 @@
 				reverselimitswitchopen="true"/>
 	</mechanism>
     
-	<mechanism type="CLIMBER">
+	<mechanism type="CLIMBER"
+			   configFile="climber.xml">
 		<motor usage="CONTROL_TABLE_MANIPULATOR"
 				canId="2"
 				pdpID="2"
@@ -365,7 +373,8 @@
     		      reversed="false" / -->
 	</mechanism>
     
-	<!--mechanism type="CRAWLER">
+	<!--mechanism type="CRAWLER" 
+	              configFile="crawler.xml">
 		<motor usage="CONTROL_TABLE_MANIPULATOR"
 				canId="63"
 				pdpID="63"

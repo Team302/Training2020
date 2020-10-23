@@ -147,6 +147,7 @@
 <!ATTLIST mechanism
           type              ( INTAKE | HUMAN_PLAYER_FLAP | IMPELLER | BALL_TRANSFER | SHOOTER | SHOOTER_HOOD | TURRET |
 							  CONTROL_TABLE_MANIPULATOR | CLIMBER | CRAWLER | HOOK_DELIVERY ) "INTAKE"
+          configFile        CDATA #REQUIRED 
 >
 
 <!ELEMENT solenoid EMPTY >

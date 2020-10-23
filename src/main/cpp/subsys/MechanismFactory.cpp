@@ -166,7 +166,7 @@ IMech*  MechanismFactory::CreateIMechanism
 				auto motor = GetMotorController( motorControllers, MotorControllerUsage::MOTOR_CONTROLLER_USAGE::BALL_TRANSFER );
 				if ( motor.get() != nullptr )
 				{
-					auto transfer = new BallTransfer( motor );
+					auto transfer = new BallTransfer( motor, controlFileName, networkTableName );
 					subsys = dynamic_cast<IMech*>(transfer);
 				}
 			}
